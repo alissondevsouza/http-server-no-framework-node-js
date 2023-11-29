@@ -1,0 +1,19 @@
+{
+  "name": "http-server-no-framework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:dev": "node --watch --no-warnings src/main/server.js",
+    "test": "node --test",
+    "test:tap": "node --test | tap"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "tap-spec": "^5.0.0"
+  }
+}

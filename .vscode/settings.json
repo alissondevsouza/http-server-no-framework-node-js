@@ -1,0 +1,8 @@
+{
+    "material-icon-theme.folders.associations": {
+        "entities": "ngrx-entities",
+        "useCases": "rules",
+        "adapters": "pipe",
+        "external": "tools"
+    }
+}
