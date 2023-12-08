@@ -1,7 +1,12 @@
+import ProductController from './productController.js';
+import { handleErrorRoute } from './errors/handleErrorRoute.js';
+
 export default class Routes {
 
-    constructor() {};
-
+    constructor() {
+        this.productController = new ProductController();
+    };
+    
     execute(keyRouter) {
         
         let productId = null;
@@ -9,23 +14,22 @@ export default class Routes {
 
         switch (true) {
             case keyRouter === '/product:get':
-                return { code: 200, message: 'Get Product' };
+                return this.productController.findProducts();
 
             case keyRouter === `/product?id=${productId}:get`:
-                return { code: 200, message: 'Get Product Id' };
+                return this.productController.findByIdProducts(productId);
 
             case keyRouter === '/product:post':
-                return { code: 200, message: 'Post Product' };
+                return this.productController.createProducts();
 
             case keyRouter === `/product?id=${productId}:put`:
-                return { code: 200, message: 'Put product Id' };
+                return this.productController.updateProducts(productId);
             
             case keyRouter === `/product?id=${productId}:delete`:
-                return { code: 200, message: 'Delete product Id' };
+                return this.productController.deleteProducts(productId);
 
             default:
-                return { code: 404, message: 'Not Found' };
+                return handleErrorRoute();
         }
-
     }
 }
