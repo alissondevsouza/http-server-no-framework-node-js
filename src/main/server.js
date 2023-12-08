@@ -1,11 +1,12 @@
 import  http  from 'node:http'
 import 'dotenv/config.js'
+import Middleware from './middleware.js'
 
-const PORT = process.env.PORT || 3000
+const middleware = new Middleware()
+const PORT = process.env.APIPORT || 3000
 
-const server = http.createServer( () => {}
-).listen(PORT, () => {console.log(`Server running on port ${PORT}`)})
-
+const server = http.createServer( middleware.execute() )
+    .listen(PORT, () => {console.log(`🚀 Server running on port ${PORT} !`)})
 
 export {
     server
