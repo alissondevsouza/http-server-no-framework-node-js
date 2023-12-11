@@ -1,27 +1,38 @@
+import factoryFindProductUseCase from '../useCases/factories/factoryFindProductUseCase.js';
+import factoryFindByIdProductUseCase from '../useCases/factories/factoryFindByIdProductUseCase.js';
+import factoryCreateProductUseCase from '../useCases/factories/factoryCreateProductUseCase.js';
+import factoryUpdateProductUseCase from '../useCases/factories/factoryUpdateProductUseCase.js';
+import factoryDeleteProductUseCase from '../useCases/factories/factoryDeleteProductUseCase.js';
+
+
 class ProductController {
 
     constructor() {
-
+        this.findProductUseCase = factoryFindProductUseCase();
+        this.findByIdProductUseCase = factoryFindByIdProductUseCase();
+        this.createProductUseCase = factoryCreateProductUseCase();
+        this.updateProductUseCase = factoryUpdateProductUseCase();
+        this.deleteProductUseCase = factoryDeleteProductUseCase();
     }
 
     findProducts() {
-        return { code: 200, message: 'Get Product' };
+        this.findProductUseCase.execute();
     }
 
     findByIdProducts(id) {
-        return { code: 200, message: `Get Product Id ${id}` };
+        this.findByIdProductUseCase.execute(id);
     }
 
     createProducts() {
-        return { code: 200, message: 'Post Product' };
+        this.createProductUseCase.execute();
     }
 
     updateProducts(id) {
-        return { code: 200, message: `Put product Id ${id}` };
+        this.updateProductUseCase.execute(id);
     }
 
     deleteProducts(id) {
-        return { code: 200, message: `Delete product Id ${id}` };
+        this.deleteProductUseCase.execute(id);
     }
 }
 
