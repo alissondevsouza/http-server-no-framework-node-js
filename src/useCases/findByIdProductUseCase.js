@@ -1,12 +1,13 @@
 class FindByIdProductUseCase {
 
     constructor(productRepository) {
+
         this.productRepository = productRepository;
     }
 
-    async execute(id) {
+    execute(id) {
         
-        return await this.productRepository.findById(id);
+        return this.productRepository.findById(id);
        
     }
 }

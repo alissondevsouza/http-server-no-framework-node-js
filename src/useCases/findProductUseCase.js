@@ -1,11 +1,11 @@
 class FindProductUseCase {
 
-    constructor( productRepository ) {
+    constructor(productRepository ) {
+        
         this.productRepository = productRepository;
     }
 
     execute() {
-
         return this.productRepository.findAll();
     }
 }

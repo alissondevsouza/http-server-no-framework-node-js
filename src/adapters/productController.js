@@ -3,6 +3,7 @@ import factoryFindByIdProductUseCase from '../useCases/factories/factoryFindById
 import factoryCreateProductUseCase from '../useCases/factories/factoryCreateProductUseCase.js';
 import factoryUpdateProductUseCase from '../useCases/factories/factoryUpdateProductUseCase.js';
 import factoryDeleteProductUseCase from '../useCases/factories/factoryDeleteProductUseCase.js';
+import FindProductUseCase from '../useCases/findProductUseCase.js';
 
 
 class ProductController {
@@ -16,23 +17,24 @@ class ProductController {
     }
 
     findProducts() {
-        this.findProductUseCase.execute();
+
+        return this.findProductUseCase.execute();
     }
 
     findByIdProducts(id) {
-        this.findByIdProductUseCase.execute(id);
+        return this.findByIdProductUseCase.execute(id);
     }
 
     createProducts() {
-        this.createProductUseCase.execute();
+        return this.createProductUseCase.execute();
     }
 
     updateProducts(id) {
-        this.updateProductUseCase.execute(id);
+        return this.updateProductUseCase.execute(id);
     }
 
     deleteProducts(id) {
-        this.deleteProductUseCase.execute(id);
+        return this.deleteProductUseCase.execute(id);
     }
 }
 
