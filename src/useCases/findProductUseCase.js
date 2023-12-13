@@ -6,6 +6,7 @@ class FindProductUseCase {
     }
 
     execute() {
+        
         return this.productRepository.findAll();
     }
 }

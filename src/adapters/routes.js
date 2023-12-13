@@ -7,7 +7,7 @@ export default class Routes {
         this.productController = new ProductController();
     };
     
-    execute(keyRouter) {
+    execute(keyRouter, dataBody) {
         
         let productId = null;
         if (keyRouter.includes('id=')) productId = keyRouter.match(/\d+/)[0];
@@ -20,10 +20,10 @@ export default class Routes {
                 return this.productController.findByIdProducts(productId);
 
             case keyRouter === '/product:post':
-                return this.productController.createProducts();
+                return this.productController.createProducts(dataBody);
 
             case keyRouter === `/product?id=${productId}:put`:
-                return this.productController.updateProducts(productId);
+                return this.productController.updateProducts(productId, dataBody);
             
             case keyRouter === `/product?id=${productId}:delete`:
                 return this.productController.deleteProducts(productId);

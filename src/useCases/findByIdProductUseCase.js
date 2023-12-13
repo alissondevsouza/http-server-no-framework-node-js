@@ -6,7 +6,6 @@ class FindByIdProductUseCase {
     }
 
     execute(id) {
-        
         return this.productRepository.findById(id);
        
     }

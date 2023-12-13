@@ -1,7 +1,6 @@
-
 function handleErrorRoute() {
 
-    return { code: 404, message: 'Not Found' };
+    return { code: 400, message: 'The requested route was not found on the server' };
 }
 
 export {

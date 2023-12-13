@@ -1,4 +1,5 @@
 import Routes from "../adapters/routes.js";
+import { handleError } from "./error/handleError.js";
 
 
 class Middleware {
@@ -9,41 +10,65 @@ class Middleware {
 
     execute() {
 
-        return (req, res) => {
+        return async (req, res) => {
 
             const KeyRouter = this._builderKeyRouter(req);
-            const responseRouter = this.routes.execute(KeyRouter);
+
+            let data = null;
+            if (req.method === 'POST' || req.method === 'PUT') data = await this._builderDataBody(req);
+
+            const responseRouter = this.routes.execute(KeyRouter, data);
 
             const respon = this._builderResponseRouter(res, responseRouter);
 
             if (respon) return;
         }
     }
+
+     _builderDataBody(req) {
+            
+            return new Promise((resolve, reject) => {
+    
+                let body = '';
+    
+                req.on('data', (chunk) => {
+                    body += chunk;
+                });
+    
+                req.on('end', () => {
+                    resolve(JSON.parse(body));
+                });
+    
+                req.on('error', (error) => {
+                    reject(error);
+                });
+            });
+    }
     
     _builderKeyRouter(req) {
 
-        const { url, method } = req;
-        const [first, routem, id] = url.split('/');
+        const { url, method} = req;
 
-        req.queryString = { id: isNaN(id) ? id : Number(id) };
-
-        const keyRouter = `/${routem}:${method.toLowerCase()}`;
+        const keyRouter = `${url}:${method.toLowerCase()}`;
 
         return keyRouter;
     }
 
     _builderResponseRouter(response, responseRouter) {
 
-        let BUILDER_ACK = false;
+        let builderAck = false;
 
         const DEFAULT_HEADER = { 'Content-Type': 'application/json' };
+
+        responseRouter? responseRouter : responseRouter = handleError(response, DEFAULT_HEADER);
+        
         const { code, message } = responseRouter;
 
         response.writeHead(code, DEFAULT_HEADER)
         response.write(message)
         response.end()
 
-        return BUILDER_ACK = true;
+        return builderAck = true;
     }
 }
 

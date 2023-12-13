@@ -1,25 +1,57 @@
 class PostgresProductRepository {
 
-    constructor() {}
+    constructor() {
+        this.mockProducts = [
+            {id: 1, name: 'Product 1'},
+            {id: 2, name: 'Product 2'},
+            {id: 3, name: 'Product 3'}
+        ]
+    }
+
 
     findAll() {
-        return { code: 200, message: 'Get Product' };
+        return this.mockProducts;
     }
 
     findById(id) {
-        return { code: 200, message: `Get Product ${id}` };
+        const newid = parseInt(id);
+
+        return this.mockProducts.find(product =>{
+            return product.id === newid;
+        });
     }
 
-    create() {
-        return { code: 200, message: 'Create Product' };
+    create(product) {
+
+        this.mockProducts.push(product);
+
+        return this.mockProducts
     }
 
-    update(id) {
-        return { code: 200, message: `Update Product ${id}` };
+    update(id, newProduct) {
+
+        const newid = parseInt(id);
+
+        const index = this.mockProducts.findIndex(product =>{
+            return product.id === newid;
+        });
+
+        this.mockProducts[index] = newProduct;
+
+        return this.mockProducts;
     }
 
     delete(id) {
-        return { code: 200, message: `Delete Product ${id}` };
+            
+        const newid = parseInt(id);
+    
+        const index = this.mockProducts.findIndex(product =>{
+            return product.id === newid;
+        });
+    
+        this.mockProducts.splice(index, 1);
+    
+        return this.mockProducts;
     }
 
 }

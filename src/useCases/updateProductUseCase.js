@@ -4,9 +4,9 @@ class UpdateProductUseCase {
         this.productRepository = productRepository;
     }
 
-    execute(product) {
+    execute(id, newproduct) {
         
-        return this.productRepository.update(product);
+        return this.productRepository.update(id, newproduct);
     }
 }
 
