@@ -3,8 +3,6 @@ import factoryFindByIdProductUseCase from '../useCases/factories/factoryFindById
 import factoryCreateProductUseCase from '../useCases/factories/factoryCreateProductUseCase.js';
 import factoryUpdateProductUseCase from '../useCases/factories/factoryUpdateProductUseCase.js';
 import factoryDeleteProductUseCase from '../useCases/factories/factoryDeleteProductUseCase.js';
-import FindProductUseCase from '../useCases/findProductUseCase.js';
-
 
 class ProductController {
 
