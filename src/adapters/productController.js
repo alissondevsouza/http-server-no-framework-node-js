@@ -15,9 +15,10 @@ class ProductController {
         this.deleteProductUseCase = factoryDeleteProductUseCase();
     }
 
-    findProducts() {
+    async findProducts() {
         try{
-            const products = JSON.stringify(this.findProductUseCase.execute());
+
+            const products =  JSON.stringify( await this.findProductUseCase.execute());
 
             return { code: 200, message: products};
 

@@ -5,9 +5,9 @@ class FindProductUseCase {
         this.productRepository = productRepository;
     }
 
-    execute() {
+    async execute() {
         
-        return this.productRepository.findAll();
+        return await this.productRepository.getAllProducts();
     }
 }
 

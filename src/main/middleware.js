@@ -17,7 +17,7 @@ class Middleware {
             let data = null;
             if (req.method === 'POST' || req.method === 'PUT') data = await this._builderDataBody(req);
 
-            const responseRouter = this.routes.execute(KeyRouter, data);
+            const responseRouter = await this.routes.execute(KeyRouter, data);
 
             const respon = this._builderResponseRouter(res, responseRouter);
 

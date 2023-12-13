@@ -1,3 +1,5 @@
+import dataBaseConfiguration from "../../database/dataBaseConfiguration.js";
+
 class PostgresProductRepository {
 
     constructor() {
@@ -6,6 +8,24 @@ class PostgresProductRepository {
             {id: 2, name: 'Product 2'},
             {id: 3, name: 'Product 3'}
         ]
+
+        this.dataBaseConnection = new dataBaseConfiguration();
+    }
+
+    async getAllProducts(){
+        try{
+
+            const client = await this.dataBaseConnection.pool.connect();
+
+            const result = await client.query('SELECT * FROM product');
+
+            client.release();
+
+            return result.rows;
+
+        }catch(error){
+            console.log(error);
+        }
     }
 
 
