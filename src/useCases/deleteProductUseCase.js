@@ -3,9 +3,9 @@ class DeleteProductUseCase {
         this.productRepository = productRepository;
     }
 
-    execute(productId) {
+    async execute(productId) {
 
-        return this.productRepository.delete(productId);
+        return await this.productRepository.deleteProduct(id);
     }
 }
 

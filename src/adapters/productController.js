@@ -27,10 +27,10 @@ class ProductController {
         }
     }
 
-    findByIdProducts(id) {
+    async findByIdProducts(id) {
         try{
 
-            const product = JSON.stringify(this.findByIdProductUseCase.execute(id));
+            const product = JSON.stringify(await this.findByIdProductUseCase.execute(id));
 
             if(product === undefined){
                 return { code: 404, message: 'Product not found'};
@@ -43,9 +43,9 @@ class ProductController {
         }        
     }
 
-    createProducts(dataBody) {
+    async createProducts(dataBody) {
         try{
-            const products = JSON.stringify(this.createProductUseCase.execute(dataBody));
+            const products = JSON.stringify(await this.createProductUseCase.execute(dataBody));
 
             return { code: 200, message: products};
 
@@ -54,9 +54,9 @@ class ProductController {
         }
     }
 
-    updateProducts(id, newProduct) {
+    async updateProducts(id, newProduct) {
         try{
-            const product = JSON.stringify(this.updateProductUseCase.execute(id, newProduct));
+            const product = JSON.stringify(await this.updateProductUseCase.execute(id, newProduct));
 
             return {code: 200, message: product}
 
@@ -65,9 +65,9 @@ class ProductController {
         }         
     }
 
-    deleteProducts(id) {
+    async deleteProducts(id) {
         try{
-            const product = JSON.stringify(this.deleteProductUseCase.execute(id));
+            const product = JSON.stringify(await this.deleteProductUseCase.execute(id));
 
             return {code: 200, message: product}
 

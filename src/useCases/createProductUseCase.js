@@ -3,9 +3,9 @@ class CreateProductUseCase {
         this.productRepository = productRepository;
     }
 
-    execute(product) {
+    async execute(product) {
     
-        return this.productRepository.create(product);
+        return await this.productRepository.createProduct(product);
     }
 }
 

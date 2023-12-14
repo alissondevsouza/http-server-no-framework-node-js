@@ -66,22 +66,5 @@ export default class Product {
     }
 }
 
-/*
-try {
-
-    const produtoTeste = new Product({ name: 'Produto Teste', price: 10, description: 'Descrição do produto teste' });
-
-    console.log(produtoTeste.showProduct());
-
-    produtoTeste.updateName('Produto Teste Atualizado');
-    produtoTeste.updatePrice(20);
-    produtoTeste.updateDescription('Produto Teste Atualizado');
-
-    console.log(produtoTeste.showProduct());
-
-}catch (error) {
-    console.log(error.message);
-}
-*/
 
   

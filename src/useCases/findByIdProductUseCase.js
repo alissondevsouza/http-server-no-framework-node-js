@@ -5,8 +5,8 @@ class FindByIdProductUseCase {
         this.productRepository = productRepository;
     }
 
-    execute(id) {
-        return this.productRepository.findById(id);
+    async execute(id) {
+        return await this.productRepository.getProductById(id);
        
     }
 }

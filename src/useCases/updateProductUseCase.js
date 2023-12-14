@@ -4,9 +4,9 @@ class UpdateProductUseCase {
         this.productRepository = productRepository;
     }
 
-    execute(id, newproduct) {
+    async execute(id, newproduct) {
         
-        return this.productRepository.update(id, newproduct);
+        return await this.productRepository.updateProduct(id, newproduct)
     }
 }
 

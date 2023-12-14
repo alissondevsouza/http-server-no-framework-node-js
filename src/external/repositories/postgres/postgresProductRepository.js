@@ -3,12 +3,6 @@ import dataBaseConfiguration from "../../database/dataBaseConfiguration.js";
 class PostgresProductRepository {
 
     constructor() {
-        this.mockProducts = [
-            {id: 1, name: 'Product 1'},
-            {id: 2, name: 'Product 2'},
-            {id: 3, name: 'Product 3'}
-        ]
-
         this.dataBaseConnection = new dataBaseConfiguration();
     }
 
@@ -28,52 +22,77 @@ class PostgresProductRepository {
         }
     }
 
+    async getProductById(id){
+        const productId = parseInt(id);
 
-    findAll() {
-        return this.mockProducts;
+        try {
+            const client = await this.dataBaseConnection.pool.connect();
+
+            const result = await client.query('SELECT * FROM product WHERE id = $1', [productId]);
+
+            client.release();
+
+            return result.rows[0];
+
+        }catch(error){
+            console.log(error);
+        }
     }
 
-    findById(id) {
-        const newid = parseInt(id);
+    async createProduct(product){
 
-        return this.mockProducts.find(product =>{
-            return product.id === newid;
-        });
+        try{
+            const client = await this.dataBaseConnection.pool.connect();
+
+            const result = await client.query(
+                'INSERT INTO product (product_name, price, description) VALUES ($1, $2, $3)', [product.product_name, product.price, product.description]);
+
+            client.release();
+
+            return await this.getAllProducts();
+
+        }catch(error){
+            console.log(error);
+        }
     }
 
-    create(product) {
+    async updateProduct(id, newProduct){
+        const productId = parseInt(id);
 
-        this.mockProducts.push(product);
+        try{
+            const client = await this.dataBaseConnection.pool.connect();
 
-        return this.mockProducts
+            const result = await client.query(
+                'UPDATE product SET product_name = $1, price = $2, description = $3 WHERE id = $4', [newProduct.product_name, newProduct.price, newProduct.description, productId]);
+
+            client.release();
+
+            const response = await this.getAllProducts();
+
+            return response;
+
+        }catch(error){
+            console.log(error);
+        }
+
     }
 
-    update(id, newProduct) {
+    async deleteProduct(id){
+        const productId = parseInt(id);
 
-        const newid = parseInt(id);
+        try{
+            const client = await this.dataBaseConnection.pool.connect();
 
-        const index = this.mockProducts.findIndex(product =>{
-            return product.id === newid;
-        });
+            const result = await client.query('DELETE FROM product WHERE id = $1', [productId]);
 
-        this.mockProducts[index] = newProduct;
+            client.release();
 
-        return this.mockProducts;
+            return result.rows;
+
+        }catch(error){
+            console.log(error);
+        }
     }
-
-    delete(id) {
-            
-        const newid = parseInt(id);
-    
-        const index = this.mockProducts.findIndex(product =>{
-            return product.id === newid;
-        });
-    
-        this.mockProducts.splice(index, 1);
-    
-        return this.mockProducts;
-    }
-
 }
 
 export default PostgresProductRepository;
