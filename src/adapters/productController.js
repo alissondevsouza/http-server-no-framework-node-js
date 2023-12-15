@@ -5,7 +5,6 @@ import factoryUpdateProductUseCase from '../useCases/factories/factoryUpdateProd
 import factoryDeleteProductUseCase from '../useCases/factories/factoryDeleteProductUseCase.js';
 import { handleErrorController } from './errors/handleErrorController.js';
 import { handleResponse } from './handleResponse.js';
-import { generateProduct } from '../utils/generateProduct.js';
 
 class ProductController {
 
@@ -42,9 +41,7 @@ class ProductController {
     async createProduct(dataBody) {
         try{
 
-            const newProduct = generateProduct(dataBody);
-
-            return handleResponse(await this.createProductUseCase.execute(newProduct));
+            return handleResponse(await this.createProductUseCase.execute(dataBody));
 
         }catch(error){
 
@@ -55,9 +52,7 @@ class ProductController {
     async updateProduct(id, dataBody) {
         try{
 
-            const updateProduct = generateProduct(dataBody);
-
-            return handleResponse(await this.updateProductUseCase.execute(id, updateProduct));
+            return handleResponse(await this.updateProductUseCase.execute(id, dataBody));
 
         }catch(error){
 
@@ -67,7 +62,7 @@ class ProductController {
 
     async deleteProduct(id) {
         try{
-
+            
             return handleResponse(await this.deleteProductUseCase.execute(id));
 
         }catch(error){

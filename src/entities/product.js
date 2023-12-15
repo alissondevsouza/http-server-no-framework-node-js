@@ -1,8 +1,6 @@
-import { randomUUID } from 'crypto';
-
 export default class Product {
     constructor( id, name, price, description ) {
-      this.id = id || randomUUID() + Date.now();
+      this.id = id || null;
       this.name = this.#validateStringInput(name, 'name');
       this.price = this.#validateNumberInput(price, 'price');
       this.description = this.#validateStringInput(description, 'description');

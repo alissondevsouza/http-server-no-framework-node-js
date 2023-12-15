@@ -1,17 +1,59 @@
+import { generateProduct } from '../utils/generateProduct.js';
+
 class CreateProductUseCase {
     constructor( productRepository ) {
         this.productRepository = productRepository;
     }
 
-    async execute(newProduct) {
+    async execute(dataBody) {
 
-        if (!newProduct) {
-            const productInvalid = `New Product invalid`;
+        const INCORRECT_PARAMETERS = 'incorretParameters'
+        const newProduct = generateProduct(dataBody);
 
-            return productInvalid;
+        if (newProduct === INCORRECT_PARAMETERS) {
+
+            const messageNoProducts = {
+                code: 400,
+                message: 'Incorrect parameters entered'
+            }
+
+            return messageNoProducts;
         }
+
+        const productExists = 
+            await this.productRepository.findProductByValues(newProduct.name, newProduct.price, newProduct.description); 
+            
+        if (productExists !== undefined) {
+                
+                const messageNoProducts = {
+                    code: 400,
+                    message: `Error when creating the product: ${newProduct.name} already exists`
+                }
     
-        return await this.productRepository.createProduct(newProduct);
+                return messageNoProducts;
+        }
+
+        await this.productRepository.createProduct(newProduct);
+
+        const productCreated = 
+            await this.productRepository.findProductByName(newProduct.name, newProduct.price, newProduct.description);
+
+        if (productCreated === undefined) {
+
+            const messageNoProducts = {
+                code: 400,
+                message: `Product ${newProduct.name} not created`
+            }
+
+            return messageNoProducts;
+        }
+
+        const createdroductResponse = {
+            code: 200,
+            message: `Product ${productCreated.name} created successfully`,
+        }
+
+        return createdroductResponse;
     }
 }
 

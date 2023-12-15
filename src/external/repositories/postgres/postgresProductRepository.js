@@ -45,6 +45,8 @@ class PostgresProductRepository {
 
             client.release();
 
+            if (result.rows[0] === undefined) return undefined;
+
             const product = new Product(
                 result.rows[0].id, 
                 result.rows[0].product_name, 
@@ -59,6 +61,56 @@ class PostgresProductRepository {
         }
     }
 
+    async findProductByValues(name, price, description){
+        try{
+            const client = await this.dataBaseConnection.pool.connect();
+
+            const result = 
+                await client.query('SELECT * FROM product WHERE product_name = $1 and price = $2 and description = $3 ', [name, price, description]);
+
+            client.release();
+
+            if (result.rows[0] === undefined) return undefined;
+
+            const product = new Product(
+                result.rows[0].id, 
+                result.rows[0].product_name, 
+                parseFloat(result.rows[0].price) , 
+                result.rows[0].description
+            );
+
+            return product;
+
+        }catch(error){
+            console.log(`Erro ao buscar produto pelo nome ${name}`);
+        }
+    }
+
+    async findProductByName(name){
+        try{
+            const client = await this.dataBaseConnection.pool.connect();
+
+            const result = 
+                await client.query('SELECT * FROM product WHERE product_name = $1', [name]);
+
+            client.release();
+
+            if (result.rows[0] === undefined) return undefined;
+
+            const product = new Product(
+                result.rows[0].id, 
+                result.rows[0].product_name, 
+                parseFloat(result.rows[0].price) , 
+                result.rows[0].description
+            );
+
+            return product;
+
+        }catch(error){
+            console.log(`Erro ao buscar produto pelo nome ${name}`);
+        }
+    }
+
     async createProduct(newProduct){
 
         try{
@@ -68,8 +120,6 @@ class PostgresProductRepository {
                 'INSERT INTO product (product_name, price, description) VALUES ($1, $2, $3)', [newProduct.name, newProduct.price, newProduct.description]);
 
             client.release();
-
-            return newProduct;
 
         }catch(error){
             console.log(error);
