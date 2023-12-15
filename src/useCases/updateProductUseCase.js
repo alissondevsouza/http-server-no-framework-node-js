@@ -33,7 +33,7 @@ class UpdateProductUseCase {
             return messageNoProducts;
         }
 
-        const productNameExists = await this.productRepository.findProductByName(newUpdateProduct.name);
+        const productNameExists = await this.productRepository.getProductByName(newUpdateProduct.name);
 
         if (productNameExists !== undefined) {
                     
@@ -47,7 +47,7 @@ class UpdateProductUseCase {
 
         await this.productRepository.updateProduct(id, newUpdateProduct);
 
-        const updatedProduct = await this.productRepository.findProductByName(newUpdateProduct.name);
+        const updatedProduct = await this.productRepository.getProductByName(newUpdateProduct.name);
 
         if (updatedProduct === undefined) {
                 

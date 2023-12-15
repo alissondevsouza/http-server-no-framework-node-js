@@ -1,5 +1,6 @@
 import dataBaseConfiguration from "../../database/dataBaseConfiguration.js";
 import Product from "../../../entities/product.js"
+import { handleErrorPostgres } from "../postgres/handleErrorPostgres.js";
 
 class PostgresProductRepository {
 
@@ -31,17 +32,17 @@ class PostgresProductRepository {
             return products;
 
         }catch(error){
-            console.log(`Erro ao buscar todos os produtos`);
+
+            console.error(`Error when searching all products. Error: ${error}`)
+            return handleErrorPostgres(error);
         }
     }
 
     async getProductById(id){
-        const productId = parseInt(id);
-
         try {
             const client = await this.dataBaseConnection.pool.connect();
 
-            const result = await client.query('SELECT * FROM product WHERE id = $1', [productId]);
+            const result = await client.query('SELECT * FROM product WHERE id = $1', [id]);
 
             client.release();
 
@@ -57,16 +58,20 @@ class PostgresProductRepository {
             return product;
 
         }catch(error){
-           //console.log(`Erro ao buscar produto pelo id ${productId}`);
+           
+            console.error(`Error when searching product by id. Error: ${error}`)
+            return handleErrorPostgres(error);
         }
     }
 
-    async findProductByValues(name, price, description){
+    async getProductByValues(name, price, description){
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
             const result = 
-                await client.query('SELECT * FROM product WHERE product_name = $1 and price = $2 and description = $3 ', [name, price, description]);
+                await client.query(
+                    'SELECT * FROM product WHERE product_name = $1 and price = $2 and description = $3 ',[name, price, description]
+                    );
 
             client.release();
 
@@ -82,11 +87,13 @@ class PostgresProductRepository {
             return product;
 
         }catch(error){
-            console.log(`Erro ao buscar produto pelo nome ${name}`);
+            
+            console.error(`Error when searching product by values. Error: ${error}`)
+            return handleErrorPostgres(error);
         }
     }
 
-    async findProductByName(name){
+    async getProductByName(name){
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
@@ -107,60 +114,58 @@ class PostgresProductRepository {
             return product;
 
         }catch(error){
-            console.log(`Erro ao buscar produto pelo nome ${name}`);
+            
+            console.error(`Error when searching product by name. Error: ${error}`)
+            return handleErrorPostgres(error);
         }
     }
 
     async createProduct(newProduct){
-
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
             await client.query(
-                'INSERT INTO product (product_name, price, description) VALUES ($1, $2, $3)', [newProduct.name, newProduct.price, newProduct.description]);
+                'INSERT INTO product (product_name, price, description) VALUES ($1, $2, $3)', [newProduct.name, newProduct.price, newProduct.description]
+                );
 
             client.release();
 
         }catch(error){
-            console.log(error);
+
+            console.error(`Error when creating product. Error: ${error}`)
+            return handleErrorPostgres(error); 
         }
     }
 
     async updateProduct(id, updateProduct){
-        const productId = parseInt(id);
-
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
             await client.query(
-                'UPDATE product SET product_name = $1, price = $2, description = $3 WHERE id = $4', [updateProduct.name, updateProduct.price, updateProduct.description, productId]);
+                'UPDATE product SET product_name = $1, price = $2, description = $3 WHERE id = $4', [updateProduct.name, updateProduct.price, updateProduct.description, id]);
 
             client.release();
 
-            const response = await this.getAllProducts();
-
-            return response;
-
         }catch(error){
-            console.log(error);
+            
+            console.error(`Error when updating product. Error: ${error}`)
+            return handleErrorPostgres(error);
         }
 
     }
 
     async deleteProduct(id){
-        const productId = parseInt(id);
-
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
-            const result = await client.query('DELETE FROM product WHERE id = $1', [productId]);
+            await client.query('DELETE FROM product WHERE id = $1', [id]);
 
             client.release();
 
-            return await this.getAllProducts()
-
         }catch(error){
-            console.log(error);
+            
+            console.error(`Error when deleting product. Error: ${error}`)
+            return handleErrorPostgres(error);
         }
     }
 }

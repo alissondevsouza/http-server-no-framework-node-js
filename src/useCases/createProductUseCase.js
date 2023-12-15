@@ -21,7 +21,7 @@ class CreateProductUseCase {
         }
 
         const productExists = 
-            await this.productRepository.findProductByValues(newProduct.name, newProduct.price, newProduct.description); 
+            await this.productRepository.getProductByValues(newProduct.name, newProduct.price, newProduct.description); 
             
         if (productExists !== undefined) {
                 
@@ -36,7 +36,7 @@ class CreateProductUseCase {
         await this.productRepository.createProduct(newProduct);
 
         const productCreated = 
-            await this.productRepository.findProductByName(newProduct.name, newProduct.price, newProduct.description);
+            await this.productRepository.getProductByName(newProduct.name, newProduct.price, newProduct.description);
 
         if (productCreated === undefined) {
 
