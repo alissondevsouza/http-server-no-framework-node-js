@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 
 export default class Product {
-    constructor({ id, name, price, description }) {
+    constructor( id, name, price, description ) {
       this.id = id || randomUUID() + Date.now();
       this.name = this.#validateStringInput(name, 'name');
       this.price = this.#validateNumberInput(price, 'price');
@@ -10,7 +10,7 @@ export default class Product {
 
 
     #validateStringInput(value, fieldName) {
-        if (typeof value !== 'string' || value.trim() === '') {
+        if (typeof value !== 'string') {
             throw new Error(`The ${fieldName} field must be a non-empty string`);
         }
 

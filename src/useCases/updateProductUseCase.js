@@ -4,9 +4,15 @@ class UpdateProductUseCase {
         this.productRepository = productRepository;
     }
 
-    async execute(id, newproduct) {
+    async execute(id, updateProduct) {
+
+        if (!updateProduct) {
+            const productInvalid = 'Product invalid';
+
+            return productInvalid;
+        }
         
-        return await this.productRepository.updateProduct(id, newproduct)
+        return await this.productRepository.updateProduct(id, updateProduct)
     }
 }
 

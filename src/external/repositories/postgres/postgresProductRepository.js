@@ -1,4 +1,5 @@
 import dataBaseConfiguration from "../../database/dataBaseConfiguration.js";
+import Product from "../../../entities/product.js"
 
 class PostgresProductRepository {
 
@@ -8,17 +9,29 @@ class PostgresProductRepository {
 
     async getAllProducts(){
         try{
-
             const client = await this.dataBaseConnection.pool.connect();
 
             const result = await client.query('SELECT * FROM product');
 
             client.release();
 
-            return result.rows;
+            let products = [];
+
+            for (let i = 0; i < result.rows.length; i++) {
+                const product = new Product(
+                    result.rows[i].id, 
+                    result.rows[i].product_name, 
+                    parseFloat(result.rows[i].price), 
+                    result.rows[i].description
+                );
+
+                products.push(product);
+            }
+
+            return products;
 
         }catch(error){
-            console.log(error);
+            console.log(`Erro ao buscar todos os produtos`);
         }
     }
 
@@ -32,38 +45,45 @@ class PostgresProductRepository {
 
             client.release();
 
-            return result.rows[0];
+            const product = new Product(
+                result.rows[0].id, 
+                result.rows[0].product_name, 
+                parseFloat(result.rows[0].price) , 
+                result.rows[0].description
+            );
+
+            return product;
 
         }catch(error){
-            console.log(error);
+           console.log(`Erro ao buscar produto pelo id ${productId}`);
         }
     }
 
-    async createProduct(product){
+    async createProduct(newProduct){
 
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
-            const result = await client.query(
-                'INSERT INTO product (product_name, price, description) VALUES ($1, $2, $3)', [product.product_name, product.price, product.description]);
+            await client.query(
+                'INSERT INTO product (product_name, price, description) VALUES ($1, $2, $3)', [newProduct.name, newProduct.price, newProduct.description]);
 
             client.release();
 
-            return await this.getAllProducts();
+            return newProduct;
 
         }catch(error){
             console.log(error);
         }
     }
 
-    async updateProduct(id, newProduct){
+    async updateProduct(id, updateProduct){
         const productId = parseInt(id);
 
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
-            const result = await client.query(
-                'UPDATE product SET product_name = $1, price = $2, description = $3 WHERE id = $4', [newProduct.product_name, newProduct.price, newProduct.description, productId]);
+            await client.query(
+                'UPDATE product SET product_name = $1, price = $2, description = $3 WHERE id = $4', [updateProduct.name, updateProduct.price, updateProduct.description, productId]);
 
             client.release();
 
@@ -87,7 +107,7 @@ class PostgresProductRepository {
 
             client.release();
 
-            return result.rows;
+            return await this.getAllProducts()
 
         }catch(error){
             console.log(error);

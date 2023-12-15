@@ -3,9 +3,15 @@ class CreateProductUseCase {
         this.productRepository = productRepository;
     }
 
-    async execute(product) {
+    async execute(newProduct) {
+
+        if (!newProduct) {
+            const productInvalid = `New Product invalid`;
+
+            return productInvalid;
+        }
     
-        return await this.productRepository.createProduct(product);
+        return await this.productRepository.createProduct(newProduct);
     }
 }
 

@@ -4,7 +4,7 @@ import factoryCreateProductUseCase from '../useCases/factories/factoryCreateProd
 import factoryUpdateProductUseCase from '../useCases/factories/factoryUpdateProductUseCase.js';
 import factoryDeleteProductUseCase from '../useCases/factories/factoryDeleteProductUseCase.js';
 import { handleErrorController } from './errors/handleErrorController.js';
-
+import Product from '../entities/product.js';
 class ProductController {
 
     constructor() {
@@ -45,7 +45,15 @@ class ProductController {
 
     async createProducts(dataBody) {
         try{
-            const products = JSON.stringify(await this.createProductUseCase.execute(dataBody));
+
+            const newProduct = new Product(
+                dataBody.id, 
+                dataBody.product_name, 
+                parseFloat(dataBody.price), 
+                dataBody.description
+            );
+
+            const products = JSON.stringify(await this.createProductUseCase.execute(newProduct));
 
             return { code: 200, message: products};
 
@@ -54,9 +62,16 @@ class ProductController {
         }
     }
 
-    async updateProducts(id, newProduct) {
+    async updateProducts(id, dataBody) {
         try{
-            const product = JSON.stringify(await this.updateProductUseCase.execute(id, newProduct));
+            const updateProduct = new Product(
+                dataBody.id, 
+                dataBody.product_name, 
+                parseFloat(dataBody.price), 
+                dataBody.description
+            );
+
+            const product = JSON.stringify(await this.updateProductUseCase.execute(id, updateProduct));
 
             return {code: 200, message: product}
 
