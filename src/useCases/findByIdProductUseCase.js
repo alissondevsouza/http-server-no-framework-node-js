@@ -8,12 +8,6 @@ class FindByIdProductUseCase {
     async execute(id) {
 
         const product = await this.productRepository.getProductById(id);
-
-        if(!product) {
-            const productNotFound = `Product id ${id} not found`
-
-            return productNotFound;
-        }
         
         return product;
        

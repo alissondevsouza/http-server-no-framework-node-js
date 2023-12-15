@@ -14,10 +14,10 @@ class Middleware {
 
             const KeyRouter = this._builderKeyRouter(req);
 
-            let data = null;
-            if (req.method === 'POST' || req.method === 'PUT') data = await this._builderDataBody(req);
+            let reqData = null;
+            if (req.method === 'POST' || req.method === 'PUT') reqData = await this._builderDataBody(req);
 
-            const responseRouter = await this.routes.execute(KeyRouter, data);
+            const responseRouter = await this.routes.execute(KeyRouter, reqData);
 
             const respon = this._builderResponseRouter(res, responseRouter);
 
@@ -68,7 +68,9 @@ class Middleware {
         response.write(message)
         response.end()
 
-        return builderAck = true;
+        builderAck = true;
+
+        return builderAck;
     }
 }
 

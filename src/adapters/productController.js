@@ -1,14 +1,16 @@
-import factoryFindProductUseCase from '../useCases/factories/factoryFindProductUseCase.js';
+import factoryFindProductUseCase from '../useCases/factories/factoryFindProductsUseCase.js';
 import factoryFindByIdProductUseCase from '../useCases/factories/factoryFindByIdProductUseCase.js';
 import factoryCreateProductUseCase from '../useCases/factories/factoryCreateProductUseCase.js';
 import factoryUpdateProductUseCase from '../useCases/factories/factoryUpdateProductUseCase.js';
 import factoryDeleteProductUseCase from '../useCases/factories/factoryDeleteProductUseCase.js';
 import { handleErrorController } from './errors/handleErrorController.js';
-import Product from '../entities/product.js';
+import { handleResponse } from './handleResponse.js';
+import { generateProduct } from '../utils/generateProduct.js';
+
 class ProductController {
 
     constructor() {
-        this.findProductUseCase = factoryFindProductUseCase();
+        this.findProductsUseCase = factoryFindProductUseCase();
         this.findByIdProductUseCase = factoryFindByIdProductUseCase();
         this.createProductUseCase = factoryCreateProductUseCase();
         this.updateProductUseCase = factoryUpdateProductUseCase();
@@ -18,75 +20,58 @@ class ProductController {
     async findProducts() {
         try{
 
-            const products =  JSON.stringify( await this.findProductUseCase.execute());
-
-            return { code: 200, message: products};
+            return handleResponse(await this.findProductsUseCase.execute());
 
         }catch(error){
-            handleErrorController(error);
+
+            return handleErrorController(error);
         }
     }
 
-    async findByIdProducts(id) {
+    async findByIdProduct(id) {
         try{
 
-            const product = JSON.stringify(await this.findByIdProductUseCase.execute(id));
-
-            if(product === undefined){
-                return { code: 404, message: 'Product not found'};
-            }
-
-            return { code: 200, message: product};
+            return handleResponse(await this.findByIdProductUseCase.execute(id));
 
         }catch(error){
+
             handleErrorController(error);
         }        
     }
 
-    async createProducts(dataBody) {
+    async createProduct(dataBody) {
         try{
 
-            const newProduct = new Product(
-                dataBody.id, 
-                dataBody.product_name, 
-                parseFloat(dataBody.price), 
-                dataBody.description
-            );
+            const newProduct = generateProduct(dataBody);
 
-            const products = JSON.stringify(await this.createProductUseCase.execute(newProduct));
-
-            return { code: 200, message: products};
+            return handleResponse(await this.createProductUseCase.execute(newProduct));
 
         }catch(error){
+
             handleErrorController(error);
         }
     }
 
-    async updateProducts(id, dataBody) {
+    async updateProduct(id, dataBody) {
         try{
-            const updateProduct = new Product(
-                dataBody.id, 
-                dataBody.product_name, 
-                parseFloat(dataBody.price), 
-                dataBody.description
-            );
 
-            const product = JSON.stringify(await this.updateProductUseCase.execute(id, updateProduct));
+            const updateProduct = generateProduct(dataBody);
 
-            return {code: 200, message: product}
+            return handleResponse(await this.updateProductUseCase.execute(id, updateProduct));
 
         }catch(error){
+
             handleErrorController(error);
         }         
     }
 
-    async deleteProducts(id) {
+    async deleteProduct(id) {
         try{
-            const product = JSON.stringify(await this.deleteProductUseCase.execute(id));
 
-            return {code: 200, message: product}
+            return handleResponse(await this.deleteProductUseCase.execute(id));
 
         }catch(error){
+
             handleErrorController(error);
         }    
     }

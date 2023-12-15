@@ -55,7 +55,7 @@ class PostgresProductRepository {
             return product;
 
         }catch(error){
-           console.log(`Erro ao buscar produto pelo id ${productId}`);
+           //console.log(`Erro ao buscar produto pelo id ${productId}`);
         }
     }
 

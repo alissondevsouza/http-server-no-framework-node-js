@@ -1,13 +1,13 @@
 import ProductController from './productController.js';
 import { handleErrorRoute } from './errors/handleErrorRoute.js';
 
-export default class Routes {
+class Routes {
 
     constructor() {
         this.productController = new ProductController();
     };
     
-    execute(keyRouter, dataBody) {
+    execute(keyRouter, bodyData) {
         
         let productId = null;
         if (keyRouter.includes('id=')) productId = keyRouter.match(/\d+/)[0];
@@ -17,19 +17,21 @@ export default class Routes {
                 return this.productController.findProducts();
 
             case keyRouter === `/product?id=${productId}:get`:
-                return this.productController.findByIdProducts(productId);
+                return this.productController.findByIdProduct(productId);
 
             case keyRouter === '/product:post':
-                return this.productController.createProducts(dataBody);
+                return this.productController.createProduct(bodyData);
 
             case keyRouter === `/product?id=${productId}:put`:
-                return this.productController.updateProducts(productId, dataBody);
+                return this.productController.updateProduct(productId, bodyData);
             
             case keyRouter === `/product?id=${productId}:delete`:
-                return this.productController.deleteProducts(productId);
+                return this.productController.deleteProduct(productId);
 
             default:
                 return handleErrorRoute();
         }
     }
 }
+
+export default Routes;
