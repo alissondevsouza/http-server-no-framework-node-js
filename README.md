@@ -1,8 +1,10 @@
-<div>
-    <span style="font-size: 30px;">
-        <h1>API para Cadastro de Produtos</h1> 
-    </span>
-    <img src="./Shared/pictures/javascript.png" height="30">
+<div style="display: inline-block;">
+    <h1 style="display: inline-block; margin-right: 10px">
+        API para Cadastro de Produtos
+    </h1> 
+    <img src="./Shared/pictures/javascript.png" 
+        height="30" 
+        style="display: inline-block;">
 </div>
 
 </br>
