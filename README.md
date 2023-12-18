@@ -1,13 +1,13 @@
 <div>
     <span style="font-size: 30px;">
-        <strong>API para Cadastro de Produtos</strong> 
+        <h1>API para Cadastro de Produtos</h1> 
     </span>
     <img src="./Shared/pictures/javascript.png" height="30">
 </div>
 
 </br>
 
-<h1> 💻 Sobre o Projeto </h1>
+<h2> 💻 Sobre o Projeto </h2>
 
 <p style="margin-left: 30px;">
     API desenvolvida para a gestão do cadastro de produtos. Esta API viabiliza consultas, cadastros, atualizações e exclusões de produtos. O conceito do projeto foi criar uma aplicação utilizando JavaScript (Vanilla) e Node.js, sem recorrer a frameworks, ORM's ou bibliotecas externas. O objetivo principal foi construir uma aplicação o mais leve e limpa possível, permitindo uma compreensão mais profunda de como tudo acontece por baixo dos panos nos frameworks e bibliotecas disponíveis no mercado.
@@ -15,7 +15,7 @@
 
 </br>
 
-<h1> ⚙️ Funcionalidades </h1>
+<h2> ⚙️ Funcionalidades </h2>
     <div style="margin-left: 30px;">
         <li>
             <input type="checkbox" checked> Consultar Todos os Produtos Cadastrados
@@ -36,7 +36,7 @@
 
 </br>
 
-<h1> 🛠 Tecnologias Utilizadas</h1>
+<h2> 🛠 Tecnologias Utilizadas</h2>
     <div style="margin-left: 30px;">
         <li>
             JavaScript
@@ -62,7 +62,7 @@
 
 </br>
 
-<h1>💡 Rotas da Aplicação </h1>
+<h2>💡 Rotas da Aplicação </h2>
 
 <li style="margin-left: 30px;">
     <strong>
@@ -140,7 +140,7 @@
 
 </br>
 
-<h1> 🚀 Como Executar o Projeto</h1>
+<h2> 🚀 Como Executar o Projeto</h2>
 
 <span> <strong> Pré requisitos: </strong> </span>
 
@@ -209,7 +209,7 @@ npm run test:int
 npm run test:cov
 ~~~
 
-<h1> 💪 Como Contribuir para o Projeto </h1>
+<h2> 💪 Como Contribuir para o Projeto </h2>
 
 <div style="margin-left: 30px;">
     <ol>
