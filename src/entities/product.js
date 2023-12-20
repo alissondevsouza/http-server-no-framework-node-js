@@ -1,14 +1,14 @@
 export default class Product {
-    constructor( id, name, price, description ) {
-      this.id = id || null;
-      this.name = this.#validateStringInput(name, 'name');
-      this.price = this.#validateNumberInput(price, 'price');
-      this.description = this.#validateStringInput(description, 'description');
+    constructor(id, name, price, description) { 
+        this.id = id || null;
+        this.name = this.#validateStringInput(name, 'name');
+        this.price = this.#validateNumberInput(price, 'price');
+        this.description = this.#validateStringInput(description, 'description');
     }
 
-
     #validateStringInput(value, fieldName) {
-        if (typeof value !== 'string') {
+
+        if (typeof value !== 'string' || value.trim() === '') {
             throw new Error(`The ${fieldName} field must be a non-empty string`);
         }
 
@@ -16,7 +16,6 @@ export default class Product {
     }
 
     #validateNumberInput(value, fieldName) {
-
         
         if (typeof value !== 'number' || value <= 0 || Number.isNaN(value)) {
             throw new Error(`The ${fieldName} field must be a positive number`);
