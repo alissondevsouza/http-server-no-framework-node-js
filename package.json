@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start:dev": "node --watch --no-warnings src/main/server.js",
-    "test:unit": "node --test src/tests/unit"
+    "test:unit": "node --test src/tests/unit",
+    "test:int": "node --test src/tests/integration"
   },
   "keywords": [],
   "author": "",
