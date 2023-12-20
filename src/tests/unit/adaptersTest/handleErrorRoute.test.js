@@ -1,26 +1,20 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
 
-import { handleResponse } from '../../../adapters/handleResponse.js'
+import { handleErrorRoute } from '../../../adapters/errors/handleErrorRoute.js'
 
-describe('handleResponse', () => {
+describe('handleErrorRoute', () => {
 
     it('Should return the response correctly', () => {
 
-        const response = {
-            code: 200,
-            message: 'OK'
-        }
-
         const responseResult = {
-            code: 200,
-            message: '{"code":200,"message":"OK"}'
+            code: 400,
+            message: 'The requested route was not found on the server'
         }
 
-        const responseReturned = handleResponse(response);
+        const responseReturned = handleErrorRoute();
 
         assert.strictEqual(responseReturned.code, responseResult.code);
         assert.strictEqual(responseReturned.message, responseResult.message);
     });
 });
-
