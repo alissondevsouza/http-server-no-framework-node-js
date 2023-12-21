@@ -65,14 +65,35 @@ describe('ProductController', () => {
         const product = await productController.findByIdProduct(43);
         const objectProduct = JSON.parse(product.message);
         
-
     });
 
     it('should update a product', async () => {
 
+        const dataBody = {
+            name: 'Product Test',
+            price: 100,
+            description: 'Product Test Description'
+        };
+
+        const productController = new ProductController();
+        await productController.updateProduct(43, dataBody);
+        const product = await productController.findByIdProduct(43);
+
+        const objectProduct = JSON.parse(product.message);
+        assert.strictEqual(objectProduct.code, 200);
+        assert.notStrictEqual(objectProduct.product, null);
+
     });
 
     it('should delete a product', async () => {
+
+        const productController = new ProductController();
+        await productController.deleteProduct(43);
+        const product = await productController.findByIdProduct(43);
+
+        const objectProduct = JSON.parse(product.message);
+        assert.strictEqual(objectProduct.code, 404);
+        assert.strictEqual(objectProduct.message, `Product ID: 43 not found in the database`);
 
     });
 
