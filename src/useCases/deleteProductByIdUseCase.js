@@ -1,4 +1,4 @@
-class DeleteProductUseCase {
+class DeleteProductByIdUseCase {
     constructor( productRepository ) {
         this.productRepository = productRepository;
     }
@@ -18,7 +18,7 @@ class DeleteProductUseCase {
             return messageNoProducts;
         }
 
-        await this.productRepository.deleteProduct(productId);
+        await this.productRepository.deleteProductById(productId);
 
         const productDeleteResponse = {
             code: 200,
@@ -29,4 +29,4 @@ class DeleteProductUseCase {
     }
 }
 
-export default DeleteProductUseCase;
+export default DeleteProductByIdUseCase;

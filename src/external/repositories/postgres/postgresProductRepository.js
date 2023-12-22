@@ -154,11 +154,26 @@ class PostgresProductRepository {
 
     }
 
-    async deleteProduct(id){
+    async deleteProductById(id){
         try{
             const client = await this.dataBaseConnection.pool.connect();
 
             await client.query('DELETE FROM product WHERE id = $1', [id]);
+
+            client.release();
+
+        }catch(error){
+            
+            console.error(`Error when deleting product. Error: ${error}`)
+            return handleErrorPostgres(error);
+        }
+    }
+
+    async deleteProductByName(name){
+        try{
+            const client = await this.dataBaseConnection.pool.connect();
+
+            await client.query('DELETE FROM product WHERE product_name = $1', [name]);
 
             client.release();
 

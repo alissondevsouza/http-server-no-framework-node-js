@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "start:dev": "node --watch --no-warnings src/main/server.js",
+    "test:all": "npm run test:unit && npm run test:int",
     "test:unit": "node --test src/tests/unit",
-    "test:int": "node --test src/tests/integration"
+    "test:int": "node --test src/tests/integration",
+    "test:cov": "node --test | tap"
   },
   "keywords": [],
   "author": "",
