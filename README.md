@@ -77,7 +77,7 @@
 <div style="margin-left: 50px;">
     <li>
         <span> 
-            GET -> <strong>//run-application</strong>
+            GET -> <strong>/run-application</strong>
         </span> </br>
         <span style="margin-left: 30px"> 
             Retorna se a aplicação está em execução
