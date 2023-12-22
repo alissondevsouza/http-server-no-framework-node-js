@@ -1,5 +1,6 @@
 import ProductController from './productController.js';
 import { handleErrorRoute } from './errors/handleErrorRoute.js';
+import { handleResponseRunApplications } from './handleResponseRunApplications.js';
 
 class Routes {
 
@@ -36,6 +37,9 @@ class Routes {
 
             case keyRouter === `/product?name=${productName}:delete`:
                 return this.productController.deleteProductByName(productName);
+
+            case keyRouter === '/run-applications:get':
+                return handleResponseRunApplications();
 
             default:
                 return handleErrorRoute();

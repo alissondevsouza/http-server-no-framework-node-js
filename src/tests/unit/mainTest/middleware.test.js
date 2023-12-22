@@ -1,10 +1,12 @@
-import Middleware from './middleware.js';
+import Middleware from '../../../main/middleware.js';
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert';
+import { randomBytes } from 'crypto';
+
 
 describe('Middleware', () => {
-
+    
     it('should return a function when execute() is called', () => {
 
         const middleware = new Middleware();
@@ -55,5 +57,31 @@ describe('Middleware', () => {
 
         assert.strictEqual(result, expectedResult);
     });
+    
+    it ('Should build the correct data body when _builderDataBody() is called', async () => {
 
+        const product = {
+            name: randomBytes(5).toString('hex'),
+            price: parseFloat((Math.random()).toFixed(2)),
+            description: randomBytes(10).toString('hex')
+        };
+
+        const req = {
+            on: (event, callback) => {
+                if (event === 'data') callback(JSON.stringify(product));
+                if (event === 'end') callback();
+            }
+        }
+
+        const expectedResult = {
+            name: product.name,
+            price: product.price,
+            description: product.description
+        };
+        
+        const middleware = new Middleware();
+        const result = await middleware._builderDataBody(req);
+
+        assert.deepStrictEqual(result, expectedResult);
+    });
 });
