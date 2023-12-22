@@ -77,6 +77,15 @@
 <div style="margin-left: 50px;">
     <li>
         <span> 
+            GET -> <strong>//run-application</strong>
+        </span> </br>
+        <span style="margin-left: 30px"> 
+            Retorna se a aplicação está em execução
+        </span>
+    </li>
+    </br>
+    <li>
+        <span> 
             GET -> <strong>/product</strong>
         </span> </br>
         <span style="margin-left: 30px"> 
@@ -191,6 +200,13 @@ npm run start:dev
 </br>
 
 <span> <strong>Execução de testes:</strong> </span></br>
+
+~~~
+# Todos Testes
+npm run test:all
+~~~
+
+</br>
 
 ~~~
 # Testes Unitários

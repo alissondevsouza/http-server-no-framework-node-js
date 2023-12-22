@@ -10,7 +10,7 @@ describe('Routes', () => {
         it('should return "Running Application" as response from the "run-application" route', async() => {
 
             const routes = new Routes();
-            const keyRouter = '/run-applications:get';
+            const keyRouter = '/run-application:get';
 
             const responseExpected = {
                 code: 200,

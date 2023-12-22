@@ -38,7 +38,7 @@ class Routes {
             case keyRouter === `/product?name=${productName}:delete`:
                 return this.productController.deleteProductByName(productName);
 
-            case keyRouter === '/run-applications:get':
+            case keyRouter === '/run-application:get':
                 return handleResponseRunApplications();
 
             default:
