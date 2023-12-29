@@ -8,7 +8,14 @@ class CreateProductUseCase {
     async execute(dataBody) {
 
         const INCORRECT_PARAMETERS = 'incorretParameters'
-        const newProduct = generateProduct(dataBody);
+
+        const parseDataBody = {
+            name: dataBody.name,
+            price: parseFloat(dataBody.price),
+            description: dataBody.description
+        }
+
+        const newProduct = generateProduct(parseDataBody);
 
         if (newProduct === INCORRECT_PARAMETERS) {
 

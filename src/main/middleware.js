@@ -12,6 +12,16 @@ class Middleware {
 
         return async (req, res) => {
 
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Methods', '*');
+            res.setHeader('Access-Control-Allow-Headers', '*');
+            
+            if (req.method === 'OPTIONS') {
+                res.writeHead(200);
+                res.end();
+                return;
+            }
+            
             const KeyRouter = this._builderKeyRouter(req);
 
             let reqData = null;
