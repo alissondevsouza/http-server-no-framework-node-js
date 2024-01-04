@@ -12,7 +12,7 @@ class FindProductsUseCase {
         if (Array.isArray(products) && products.length === 0) {
 
             const messageNoProducts = {
-                code: 404,
+                code: 200,
                 message: 'No products were found in the database'
             }
         

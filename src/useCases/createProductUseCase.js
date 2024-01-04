@@ -56,7 +56,7 @@ class CreateProductUseCase {
         }
 
         const createdroductResponse = {
-            code: 200,
+            code: 201,
             message: `Product ${productCreated.name} created successfully`,
         }
 
