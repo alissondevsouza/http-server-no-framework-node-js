@@ -2,7 +2,7 @@
     <h1 style="display: inline-block; margin-right: 10px">
         API para Cadastro de Produtos
     </h1> 
-    <img src="./Shared/pictures/javascript.png" 
+    <img src="./Shared/pictures/javascript.svg" 
         height="30" 
         style="display: inline-block;">
 </div>

@@ -42,7 +42,7 @@ class UpdateProductUseCase {
 
         const productNameExists = await this.productRepository.getProductByName(newUpdateProduct.name);
 
-        if (productNameExists !== undefined) {
+        if (productNameExists !== undefined && newUpdateProduct.name !== productExists.name) {
                     
                 const messageNoProducts = {
                     code: 400,

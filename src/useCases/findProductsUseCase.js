@@ -13,6 +13,7 @@ class FindProductsUseCase {
 
             const messageNoProducts = {
                 code: 200,
+                products: products,
                 message: 'No products were found in the database'
             }
         
