@@ -227,6 +227,33 @@ npm run test:int
 npm run test:cov
 ~~~
 
+</br>
+
+<span> <strong>2º Possibilidade de Execução:</strong> </span></br>
+
+<span>Execução com Docker:</span></br>
+
+~~~
+# Executar apenas a base de dados (Postgres) para a api
+npm run start:docker:database
+~~~
+
+</br>
+
+~~~
+# Executar apenas a server (este projeto e base da dados)
+npm run start:docker:server
+~~~
+
+</br>
+
+~~~
+# Executar a solução toda: Backend, frontend e Base de dados
+npm run start:docker:fullapplication
+~~~
+
+</br>
+
 <h2> 💪 Como Contribuir para o Projeto </h2>
 
 <div style="margin-left: 30px;">
